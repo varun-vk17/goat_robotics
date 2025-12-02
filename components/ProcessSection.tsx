@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { CheckCircle2, Search, Settings, Rocket } from "lucide-react";
+import Stepper, { Step } from "./Stepper";
 
 export const ProcessSection = () => {
     const steps = [
@@ -27,57 +30,98 @@ export const ProcessSection = () => {
     ];
 
     return (
-        <section className="py-24 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-20">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full mb-4 border border-gray-200">
+        <section className="py-24 md:py-32 bg-gray-50 relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-[0.3] pointer-events-none bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                {/* Header */}
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full mb-6 border border-gray-200">
                         <CheckCircle2 className="w-4 h-4 text-[#5ab8b4]" />
                         <span className="text-[#5ab8b4] font-bold tracking-wide uppercase text-xs font-[family-name:var(--font-plus-jakarta-sans)]">
                             Transparency Builds Trust
                         </span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-black font-[family-name:var(--font-plus-jakarta-sans)] leading-tight">
+                    <h2 className="text-5xl md:text-6xl font-extrabold text-black font-[family-name:var(--font-plus-jakarta-sans)] leading-tight tracking-tight">
                         We Automate Your Factory in <span className="text-[#5ab8b4]">Just 6 Weeks</span>
                     </h2>
                 </div>
 
-                <div className="relative">
-                    {/* Connecting Line (Desktop) */}
-                    <div className="hidden md:block absolute top-12 left-0 w-full h-1 bg-gray-100 -translate-y-1/2 z-0">
-                        <div className="h-full w-full bg-[#5ab8b4] opacity-20"></div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+                {/* Stepper Component */}
+                <div className="max-w-5xl mx-auto">
+                    <Stepper
+                        initialStep={1}
+                        stepCircleContainerClassName="!bg-white !border-gray-200 !max-w-full"
+                        contentClassName="!px-0"
+                        footerClassName="!px-8"
+                        nextButtonProps={{
+                            className: "!bg-[#5ab8b4] hover:!bg-[#4a9fa0] !text-white !font-bold !py-3 !px-8 !rounded-full !transition-all !shadow-lg hover:!shadow-xl font-[family-name:var(--font-plus-jakarta-sans)]"
+                        }}
+                        backButtonProps={{
+                            className: "!text-gray-600 hover:!text-black !font-medium font-[family-name:var(--font-plus-jakarta-sans)]"
+                        }}
+                        nextButtonText="Next Step"
+                        backButtonText="Previous"
+                    >
                         {steps.map((step, index) => (
-                            <div key={index} className="group relative">
-                                <div className={`w-24 h-24 mx-auto ${step.color} rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-300 border-4 border-white relative z-10`}>
-                                    {step.icon}
-                                </div>
-
-                                <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 h-full relative overflow-hidden group-hover:-translate-y-2">
-                                    <div className={`absolute top-0 left-0 w-full h-1 ${step.color}`}></div>
-
-                                    <div className="inline-block bg-gray-100 text-black text-sm font-bold px-4 py-1.5 rounded-full mb-6 font-[family-name:var(--font-plus-jakarta-sans)]">
-                                        {step.week}
+                            <Step key={index}>
+                                <div className="p-8">
+                                    {/* Step Header */}
+                                    <div className="flex items-start gap-6 mb-6">
+                                        <div className={`${step.color} w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0`}>
+                                            {step.icon}
+                                        </div>
+                                        <div>
+                                            <div className="inline-block bg-gray-100 text-black text-sm font-bold px-4 py-2 rounded-full mb-3 font-[family-name:var(--font-plus-jakarta-sans)]">
+                                                {step.week}
+                                            </div>
+                                            <h3 className="text-2xl md:text-3xl font-bold text-black font-[family-name:var(--font-plus-jakarta-sans)]">
+                                                {step.title}
+                                            </h3>
+                                        </div>
                                     </div>
 
-                                    <h4 className="text-xl font-bold text-black mb-6 font-[family-name:var(--font-plus-jakarta-sans)]">
-                                        {step.title}
-                                    </h4>
-
-                                    <ul className="space-y-3">
-                                        {step.items.map((item, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-gray-600 font-[family-name:var(--font-poppins)] text-sm leading-relaxed">
-                                                <span className={`w-1.5 h-1.5 ${step.color} rounded-full mt-2 flex-shrink-0`}></span>
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    {/* Step Content */}
+                                    <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                                        <ul className="space-y-3">
+                                            {step.items.map((item, i) => (
+                                                <li key={i} className="flex items-start gap-3 text-gray-700 font-[family-name:var(--font-poppins)] text-base leading-relaxed">
+                                                    <span className={`w-2 h-2 ${step.color} rounded-full mt-2 flex-shrink-0`}></span>
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            </Step>
                         ))}
-                    </div>
+                    </Stepper>
                 </div>
+
+                {/* Custom Styles for Stepper Colors */}
+                <style jsx global>{`
+                    .step-indicator-inner {
+                        transition: all 0.3s ease;
+                    }
+                    
+                    /* Override default colors with teal */
+                    .step-indicator-inner[style*="background-color: rgb(82, 39, 255)"] {
+                        background-color: #5ab8b4 !important;
+                    }
+                    
+                    .step-connector-inner[style*="background-color: rgb(82, 39, 255)"] {
+                        background-color: #5ab8b4 !important;
+                    }
+                    
+                    .next-button {
+                        background-color: #5ab8b4 !important;
+                    }
+                    
+                    .next-button:hover {
+                        background-color: #4a9fa0 !important;
+                    }
+                `}</style>
             </div>
         </section>
     );

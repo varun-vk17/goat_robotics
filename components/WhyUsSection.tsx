@@ -1,100 +1,171 @@
-import React from "react";
-import { IndianRupee, Clock, MapPin, Settings, Truck, ShieldCheck, Star } from "lucide-react";
+"use client";
+
+import React, { useState } from "react";
+import { Star } from "lucide-react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export const WhyUsSection = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
     const features = [
         {
-            icon: <IndianRupee className="w-8 h-8 text-white" />,
             title: "5X Cheaper Than Imports",
-            description: "₹8–18L vs. ₹40–90L for MiR / OTTO / KUKA",
-            color: "bg-[#5ab8b4]",
+            description: "Our AMRs cost ₹8–18L compared to ₹40–90L for MiR, OTTO, or KUKA. Get the same automation capabilities at a fraction of the cost, with faster ROI and lower total cost of ownership.",
+            image: "/brands/acc1.png",
+            category: "Cost Savings"
         },
         {
-            icon: <Clock className="w-8 h-8 text-white" />,
             title: "8-Month ROI",
-            description: "Recover full cost from labor savings alone",
-            color: "bg-black",
+            description: "Recover your full investment in just 8-12 months through labor savings alone. Our clients save ₹15–20L per year in labor costs and avoid ₹10–15L in injury-related losses.",
+            image: "/brands/acc2.jpeg",
+            category: "Financial Impact"
         },
         {
-            icon: <MapPin className="w-8 h-8 text-white" />,
             title: "Built for Indian Manufacturing",
-            description: "Works on dust, slopes, narrow aisles, rough floors",
-            color: "bg-[#5ab8b4]",
+            description: "Designed specifically for Indian factory conditions - works flawlessly on dust, slopes, narrow aisles, and rough floors. No expensive floor modifications required.",
+            image: "/brands/ind.jpeg",
+            category: "Local Advantage"
+        },
+
+        {
+            title: "24/7 Local Support",
+            description: "No waiting for overseas support. Our dedicated team of engineers across India ensures 4-hour response times and on-site assistance whenever you need it.",
+            image: "/brands/acc4.jpeg",
+            category: "Reliability"
         },
         {
-            icon: <Settings className="w-8 h-8 text-white" />,
-            title: "Full Customization",
-            description: "Payload, sensors, software, routes — tailored to your plant",
-            color: "bg-[#5ab8b4]",
-        },
-        {
-            icon: <Truck className="w-8 h-8 text-white" />,
-            title: "Faster Delivery",
-            description: "4–6 weeks vs. 12–16 weeks for imported robots",
-            color: "bg-[#5ab8b4]",
-        },
-        {
-            icon: <ShieldCheck className="w-8 h-8 text-white" />,
-            title: "Local Coimbatore Support",
-            description: "98% uptime, 48-hour parts availability",
-            color: "bg-black",
-        },
+            title: "Seamless Integration",
+            description: "Integrates with your existing ERP, WMS, and production systems in days, not months. Our open API architecture ensures your robots talk to your software ecosystem perfectly.",
+            image: "/brands/ac5.jpeg",
+            category: "Technology"
+        }
     ];
 
     return (
-        <section className="py-24 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-20">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full mb-4 border border-gray-200">
+        <section className="py-24 md:py-32 bg-white relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-[0.3] pointer-events-none bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                {/* Header */}
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6">
                         <Star className="w-4 h-4 text-[#5ab8b4]" />
                         <span className="text-[#5ab8b4] font-bold tracking-wide uppercase text-xs font-[family-name:var(--font-plus-jakarta-sans)]">
                             Why Choose GOAT Robotics
                         </span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-black font-[family-name:var(--font-plus-jakarta-sans)] leading-tight">
+                    <h2 className="text-5xl md:text-6xl font-extrabold text-black font-[family-name:var(--font-plus-jakarta-sans)] leading-tight tracking-tight">
                         The Most Cost-Effective AMR <br className="hidden md:block" /> Manufacturer in India
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {features.map((feature, index) => (
-                        <div
-                            key={index}
-                            className="group p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white hover:-translate-y-2 relative overflow-hidden"
-                        >
-                            <div className={`absolute top-0 right-0 w-24 h-24 ${feature.color} opacity-5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150`}></div>
-
-                            <div className={`${feature.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                                {feature.icon}
-                            </div>
-                            <h4 className="text-xl font-bold text-black mb-3 font-[family-name:var(--font-plus-jakarta-sans)] group-hover:text-[#5ab8b4] transition-colors">
-                                {feature.title}
-                            </h4>
-                            <p className="text-gray-600 font-[family-name:var(--font-poppins)] leading-relaxed">
-                                {feature.description}
-                            </p>
+                {/* Accordion Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    {/* Left: Image */}
+                    <div className="relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl">
+                        <div className="absolute inset-0">
+                            <Image
+                                src={features[activeIndex].image}
+                                alt={features[activeIndex].title}
+                                fill
+                                className="rounded-3xl object-cover"
+                            />
                         </div>
-                    ))}
+                        {/* Category Label */}
+                        <div className="absolute top-6 left-6 bg-yellow-400 text-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300">
+                            {features[activeIndex].category}
+                        </div>
+                    </div>
+
+                    {/* Right: Accordion */}
+                    <div className="flex flex-row gap-2 h-[500px]">
+                        {features.map((feature, index) => {
+                            const isActive = activeIndex === index;
+
+                            return (
+                                <div
+                                    key={index}
+                                    className={cn(
+                                        "relative rounded-3xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] cursor-pointer",
+                                        "bg-gradient-to-br from-gray-900 to-black",
+                                        "border-2",
+                                        isActive
+                                            ? "border-[#5ab8b4] shadow-xl shadow-[#5ab8b4]/20 flex-[3]"
+                                            : "border-gray-800 hover:border-gray-700 flex-[0.5] hover:flex-[0.75]"
+                                    )}
+                                    onClick={() => setActiveIndex(index)}
+                                >
+                                    {/* Number Badge */}
+                                    <div className={cn(
+                                        "absolute w-12 h-12 bg-white text-black rounded-xl flex items-center justify-center text-xl font-bold font-[family-name:var(--font-plus-jakarta-sans)] z-10 transition-all duration-500",
+                                        isActive ? "top-6 right-6" : "top-6 left-1/2 -translate-x-1/2"
+                                    )}>
+                                        {index + 1}
+                                    </div>
+
+                                    <div className={cn(
+                                        "p-8 transition-all duration-500 h-full flex flex-col",
+                                        isActive ? "opacity-100 delay-200" : "opacity-0 invisible absolute inset-0"
+                                    )}>
+                                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 mt-14 font-[family-name:var(--font-plus-jakarta-sans)] leading-tight">
+                                            {feature.title}
+                                        </h3>
+
+                                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 flex-1 flex flex-col justify-between">
+                                            <p className="text-gray-300 text-base font-[family-name:var(--font-poppins)] leading-relaxed mb-6">
+                                                {feature.description}
+                                            </p>
+                                            <div>
+                                                <button className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-bold text-sm hover:bg-gray-100 transition-colors font-[family-name:var(--font-plus-jakarta-sans)]">
+                                                    Request a demo
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Active Indicator */}
+                                    {isActive && (
+                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#5ab8b4]"></div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
 
-                <div className="mt-20 bg-black rounded-3xl p-10 text-center text-white shadow-2xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                {/* Stats Banner */}
+                <div className="mt-20 bg-black rounded-3xl p-10 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full opacity-5 bg-[radial-gradient(circle_at_50%_50%,#5ab8b4,transparent_50%)]"></div>
                     <div className="relative z-10">
-                        <h4 className="text-2xl font-bold mb-4 font-[family-name:var(--font-plus-jakarta-sans)]">Proven Track Record</h4>
-                        <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+                        <h4 className="text-2xl md:text-3xl font-bold mb-8 font-[family-name:var(--font-plus-jakarta-sans)]">
+                            Proven Track Record
+                        </h4>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                             <div className="flex flex-col items-center">
-                                <span className="text-4xl font-extrabold text-[#5ab8b4]">60+</span>
-                                <span className="text-sm opacity-80 uppercase tracking-wider mt-1">Deployments</span>
+                                <span className="text-5xl md:text-6xl font-extrabold text-[#5ab8b4] mb-2 font-[family-name:var(--font-plus-jakarta-sans)]">
+                                    60+
+                                </span>
+                                <span className="text-sm opacity-80 uppercase tracking-wider font-[family-name:var(--font-plus-jakarta-sans)]">
+                                    Deployments
+                                </span>
                             </div>
-                            <div className="w-px h-12 bg-white/20 hidden md:block"></div>
                             <div className="flex flex-col items-center">
-                                <span className="text-4xl font-extrabold text-[#5ab8b4]">120,000+</span>
-                                <span className="text-sm opacity-80 uppercase tracking-wider mt-1">Kilometers</span>
+                                <span className="text-5xl md:text-6xl font-extrabold text-[#5ab8b4] mb-2 font-[family-name:var(--font-plus-jakarta-sans)]">
+                                    120,000+
+                                </span>
+                                <span className="text-sm opacity-80 uppercase tracking-wider font-[family-name:var(--font-plus-jakarta-sans)]">
+                                    Kilometers
+                                </span>
                             </div>
-                            <div className="w-px h-12 bg-white/20 hidden md:block"></div>
                             <div className="flex flex-col items-center">
-                                <span className="text-4xl font-extrabold text-[#5ab8b4]">0</span>
-                                <span className="text-sm opacity-80 uppercase tracking-wider mt-1">Accidents</span>
+                                <span className="text-5xl md:text-6xl font-extrabold text-[#5ab8b4] mb-2 font-[family-name:var(--font-plus-jakarta-sans)]">
+                                    0
+                                </span>
+                                <span className="text-sm opacity-80 uppercase tracking-wider font-[family-name:var(--font-plus-jakarta-sans)]">
+                                    Accidents
+                                </span>
                             </div>
                         </div>
                     </div>

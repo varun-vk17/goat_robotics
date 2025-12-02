@@ -39,6 +39,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${plusJakartaSans.variable} ${poppins.variable} ${titilliumWeb.variable} ${inter.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
       </body>
